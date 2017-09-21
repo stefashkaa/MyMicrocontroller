@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MyMicrocontroller.Resources"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <v:String x:Key="logonTitle">Logon</v:String>
+    <v:String x:Key="logonText">Log on</v:String>
+    <v:String x:Key="userName">User name</v:String>
+    <v:String x:Key="password">Password</v:String>
+    <v:String x:Key="menuLanguage">Language</v:String>
+</ResourceDictionary>

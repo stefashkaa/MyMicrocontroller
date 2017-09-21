@@ -14,9 +14,11 @@
                 <GradientStop Color="#FF1243AA" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBox HorizontalAlignment="Left" Height="27" Margin="75,74,0,0" TextWrapping="Wrap" Text="{DynamicResource userName}" VerticalAlignment="Top" Width="190" FontFamily="Times New Roman" FontSize="16" ToolTip="{DynamicResource userName}"/>
-        <Menu Background="{x:Null}">
-            <MenuItem x:Name="menuLanguage" Header="{DynamicResource menuLanguage}" Height="26" Width="115" ToolTip="{DynamicResource menuLanguage}"/>
+        <TextBox Height="27" Margin="75,75,75,0" TextWrapping="Wrap" Text="{DynamicResource userName}" VerticalAlignment="Top" FontFamily="{DynamicResource defaultFont}" FontSize="{DynamicResource defaultFontSize}" ToolTip="{DynamicResource userName}" TextAlignment="Center"/>
+        <Menu Background="{x:Null}" Margin="0,279,0,0">
+            <MenuItem x:Name="menuLanguage" Header="{DynamicResource menuLanguage}" Height="30" Width="189" ToolTip="{DynamicResource menuLanguage}" VerticalContentAlignment="Center" Margin="75,0,0,0" FontFamily="{DynamicResource defaultFont}" FontSize="{DynamicResource defaultFontSize}"/>
         </Menu>
+        <TextBox Height="27" Margin="75,117,75,0" TextWrapping="Wrap" Text="{DynamicResource password}" VerticalAlignment="Top" FontFamily="{DynamicResource defaultFont}" FontSize="{DynamicResource ResourceKey=defaultFontSize}" ToolTip="{DynamicResource password}" TextAlignment="Center"/>
+        <Button Content="{DynamicResource logonText}" FontFamily="{DynamicResource defaultFont}" FontSize="{DynamicResource ResourceKey=defaultFontSize}" ToolTip="{DynamicResource logonText}" Height="30" Margin="75,159,75,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

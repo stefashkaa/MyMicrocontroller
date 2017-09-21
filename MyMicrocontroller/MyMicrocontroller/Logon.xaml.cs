@@ -21,10 +21,16 @@ namespace MyMicrocontroller
     /// </summary>
     public partial class Logon : Window
     {
+        private List<Account> trustedAccounts;
         public Logon()
         {
             InitializeComponent();
+            InitializeLanguageMenu();
+            InitializeTrustedAccounts();
+        }
 
+        private void InitializeLanguageMenu()
+        {
             App.LanguageChanged += LanguageChanged;
 
             var currLang = App.Language;
@@ -39,10 +45,19 @@ namespace MyMicrocontroller
                 menuLang.Click += ChangeLanguageClick;
                 menuLanguage.Items.Add(menuLang);
             }
-
         }
 
-        private void LanguageChanged(Object sender, EventArgs e)
+        private void InitializeTrustedAccounts()
+        {
+            trustedAccounts = new List<Account>()
+            {
+                new Account("stefan", "pass"),
+                new Account("tanya", "pass"),
+                new Account("yaroslav", "pass")
+            };
+        }
+
+        private void LanguageChanged(object sender, EventArgs e)
         {
             var currLang = App.Language;
 
@@ -53,7 +68,7 @@ namespace MyMicrocontroller
             }
         }
 
-        private void ChangeLanguageClick(Object sender, EventArgs e)
+        private void ChangeLanguageClick(object sender, EventArgs e)
         {
             var mi = sender as MenuItem;
             if (mi != null)
@@ -66,5 +81,33 @@ namespace MyMicrocontroller
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var currentAccount = new Account(userName_txt.Text, password_txt.Text);
+            if (!trustedAccounts.Any(a => a.Name.Equals(currentAccount.Name) && a.Password.Equals(currentAccount.Password)))
+            {
+                MessageBox.Show("error", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                this.Close();
+                //TODO: open next window
+            }
+        }
+    }
+
+    public class Account
+    {
+        private string name;
+        private string password;
+
+        public string Name { get => name; }
+        public string Password { get => password; }
+
+        public Account(string name, string password)
+        {
+            this.name = name;
+            this.password = password;
+        }
     }
 }

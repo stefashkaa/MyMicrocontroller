@@ -7,4 +7,6 @@
     <v:String x:Key="userName">Имя пользователя</v:String>
     <v:String x:Key="password">Пароль</v:String>
     <v:String x:Key="menuLanguage">Выбор языка</v:String>
+    <v:String x:Key="errorLogonTitle">Login failed!</v:String>
+    <v:String x:Key="errorLogonText">Введены не верные учётные данные! Попробуйте войти еще раз.</v:String>
 </ResourceDictionary>

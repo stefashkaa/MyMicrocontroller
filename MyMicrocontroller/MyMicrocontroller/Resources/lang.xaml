@@ -7,4 +7,6 @@
     <v:String x:Key="userName">User name</v:String>
     <v:String x:Key="password">Password</v:String>
     <v:String x:Key="menuLanguage">Language</v:String>
+    <v:String x:Key="errorLogonTitle">Login failed!</v:String>
+    <v:String x:Key="errorLogonText">Incorrect credentials entered! Try to log on again.</v:String>
 </ResourceDictionary>

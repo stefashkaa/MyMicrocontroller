@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -83,10 +84,14 @@ namespace MyMicrocontroller
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            var converter = new TypeConverter();
+            var errorLogonTitle = converter.ConvertToString(Application.Current.Resources["errorLogonTitle"]);
+            var errorLogonText = converter.ConvertToString(Application.Current.Resources["errorLogonText"]);
+
             var currentAccount = new Account(userName_txt.Text, password_txt.Text);
             if (!trustedAccounts.Any(a => a.Name.Equals(currentAccount.Name) && a.Password.Equals(currentAccount.Password)))
             {
-                MessageBox.Show("error", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(errorLogonText, errorLogonTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {

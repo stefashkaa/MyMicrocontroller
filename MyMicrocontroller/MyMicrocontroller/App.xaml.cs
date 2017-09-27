@@ -16,10 +16,7 @@ namespace MyMicrocontroller
 
         public static List<CultureInfo> Languages
         {
-            get
-            {
-                return languages;
-            }
+            get => languages;
         }
 
         public App()
@@ -36,7 +33,7 @@ namespace MyMicrocontroller
             get => currentLanguage ?? CultureInfo.GetCultureInfo("en-US");//default
             set
             {
-                if (value == null) throw new ArgumentNullException("value");
+                if (value == null) throw new ArgumentNullException(value.Name);
                 if (value == System.Threading.Thread.CurrentThread.CurrentUICulture) return;
 
                 System.Threading.Thread.CurrentThread.CurrentUICulture = value;
@@ -52,9 +49,8 @@ namespace MyMicrocontroller
                         break;
                 }
 
-                var oldDict = (from d in Application.Current.Resources.MergedDictionaries
-                                              where d.Source != null && d.Source.OriginalString.StartsWith("Resources/lang.")
-                                              select d).First();
+                var oldDict = Application.Current.Resources.MergedDictionaries.
+                    First(d => d.Source != null && d.Source.OriginalString.StartsWith("Resources/lang."));
                 if (oldDict != null)
                 {
                     int ind = Application.Current.Resources.MergedDictionaries.IndexOf(oldDict);

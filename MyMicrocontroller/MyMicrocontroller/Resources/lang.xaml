@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:MyMicrocontroller.Resources"
                     xmlns:v="clr-namespace:System;assembly=mscorlib">
     <v:String x:Key="logonTitle">Logon</v:String>
     <v:String x:Key="logonText">Log on</v:String>
@@ -9,4 +8,5 @@
     <v:String x:Key="menuLanguage">Language</v:String>
     <v:String x:Key="errorLogonTitle">Login failed!</v:String>
     <v:String x:Key="errorLogonText">Incorrect credentials entered! Try to log on again.</v:String>
+    <v:String x:Key="clientTitle">MyMicrocontroller</v:String>
 </ResourceDictionary>

@@ -95,8 +95,9 @@ namespace MyMicrocontroller
             }
             else
             {
+                var client = new Client(currentAccount.Name);
+                client.Show();
                 this.Close();
-                //TODO: open next window
             }
         }
     }

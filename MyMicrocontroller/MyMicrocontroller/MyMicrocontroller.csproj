@@ -84,6 +84,7 @@
     <Compile Include="Client.xaml.cs">
       <DependentUpon>Client.xaml</DependentUpon>
     </Compile>
+    <Compile Include="COMPort.cs" />
     <Compile Include="Logon.xaml.cs">
       <DependentUpon>Logon.xaml</DependentUpon>
       <SubType>Code</SubType>

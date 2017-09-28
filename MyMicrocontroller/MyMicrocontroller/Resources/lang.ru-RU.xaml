@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <!--Logon-->
     <v:String x:Key="logonTitle">Вход</v:String>
     <v:String x:Key="logonText">Войти</v:String>
     <v:String x:Key="userName">Имя пользователя</v:String>
@@ -8,5 +9,12 @@
     <v:String x:Key="menuLanguage">Выбор языка</v:String>
     <v:String x:Key="errorLogonTitle">Ошибка входа!</v:String>
     <v:String x:Key="errorLogonText">Введены не верные учётные данные! Попробуйте войти еще раз.</v:String>
-    <v:String x:Key="clientTitle">МойМикроконтроллер</v:String>
+    <!--Client-->
+    <v:String x:Key="clientTitle">Мой Микроконтроллер</v:String>
+    <v:String x:Key="voltageText">Показания напряжения:</v:String>
+    <v:String x:Key="voltageHelp">Результирующее напряжение</v:String>
+    <v:String x:Key="comText">COM - порт:</v:String>
+    <v:String x:Key="comHelp">Выберите COM - порт</v:String>
+    <v:String x:Key="channelText">Номер канала:</v:String>
+    <v:String x:Key="startText">Старт</v:String>
 </ResourceDictionary>

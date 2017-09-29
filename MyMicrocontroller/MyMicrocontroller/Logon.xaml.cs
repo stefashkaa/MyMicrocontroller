@@ -3,17 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyMicrocontroller
 {
@@ -22,13 +14,13 @@ namespace MyMicrocontroller
     /// </summary>
     public partial class Logon : Window
     {
-        private List<Account> trustedAccounts;
         public Logon()
         {
             InitializeComponent();
             InitializeLanguageMenu();
-            InitializeTrustedAccounts();
         }
+
+        #region LanguageEvents
 
         private void InitializeLanguageMenu()
         {
@@ -46,16 +38,6 @@ namespace MyMicrocontroller
                 menuLang.Click += ChangeLanguageClick;
                 menuLanguage.Items.Add(menuLang);
             }
-        }
-
-        private void InitializeTrustedAccounts()
-        {
-            trustedAccounts = new List<Account>()
-            {
-                new Account("stefan", "pass"),
-                new Account("tanya", "pass"),
-                new Account("yaroslav", "pass")
-            };
         }
 
         private void LanguageChanged(object sender, EventArgs e)
@@ -82,13 +64,27 @@ namespace MyMicrocontroller
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        private List<Account> InitializeTrustedAccounts()
+        {
+            return new List<Account>()
+            {
+                new Account("stefan", "pass"),
+                new Account("tanya", "pass"),
+                new Account("yaroslav", "pass")
+            };
+        }
+
+        private void Logon_Click(object sender, RoutedEventArgs e)
         {
             var converter = new TypeConverter();
             var errorLogonTitle = converter.ConvertToString(Application.Current.Resources["errorLogonTitle"]);
             var errorLogonText = converter.ConvertToString(Application.Current.Resources["errorLogonText"]);
 
-            var currentAccount = new Account(userName_txt.Text, password_txt.Text);
+            var trustedAccounts = InitializeTrustedAccounts();
+            var currentAccount = new Account(userName_txt.Text, password_pass.Password);
+
             if (!trustedAccounts.Any(a => a.Name.Equals(currentAccount.Name) && a.Password.Equals(currentAccount.Password)))
             {
                 MessageBox.Show(errorLogonText, errorLogonTitle, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -98,6 +94,39 @@ namespace MyMicrocontroller
                 var client = new Client(currentAccount.Name);
                 client.Show();
                 this.Close();
+            }
+        }
+
+        private void UserName_txt_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(userName_txt.Text))
+            {
+                userName_txt.Text = (string)Application.Current.Resources["userName"];
+            }
+        }
+
+        private void UserName_txt_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (userName_txt.Text.Equals((string)Application.Current.Resources["userName"]))
+            {
+                userName_txt.Text = "";
+            }
+        }
+
+        private void Password_txt_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            password_txt.Visibility = Visibility.Hidden;
+            password_pass.Visibility = Visibility.Visible;
+            password_pass.Focus();
+        }
+
+        private void Password_pass_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(password_pass.Password))
+            {
+                password_pass.Visibility = Visibility.Hidden;
+                password_pass.Password = "";
+                password_txt.Visibility = Visibility.Visible;
             }
         }
     }

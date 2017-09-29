@@ -17,4 +17,6 @@
     <v:String x:Key="comHelp">Выберите COM - порт</v:String>
     <v:String x:Key="channelText">Номер канала:</v:String>
     <v:String x:Key="startText">Старт</v:String>
+    <v:String x:Key="taskTitle">Задание</v:String>
+    <v:String x:Key="taskText">Задание 45. Измерить напряжение на заданном входе АЦП (модуль 7018) и вывести его значение. Номер канала устанавливается на входе модуля 7044, задавая потенциалы "земли" и напряжение питания. В момент окончания измерения включить на выходе 7044 индикаторную лампочку.</v:String>
 </ResourceDictionary>

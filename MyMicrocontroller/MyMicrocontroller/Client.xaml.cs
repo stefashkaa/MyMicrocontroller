@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MyMicrocontroller
 {
@@ -20,16 +13,34 @@ namespace MyMicrocontroller
     /// </summary>
     public partial class Client : Window
     {
-        private string userName;
+        private readonly string userName;
+        private readonly BackgroundWorker worker;
         public Client()
         {
             InitializeComponent();
             InitializeCOMSelector();
+            worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
         }
 
         public Client(string name) : this()
         {
             this.userName = name;
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // run all background tasks here
+            var number = int.Parse(e.Argument.ToString());
+            Thread.Sleep(4000);
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //update ui once worker complete his work
+            progressBar.Visibility = Visibility.Hidden;
+            start_btn.IsEnabled = true;
         }
 
         private void InitializeCOMSelector()
@@ -48,6 +59,14 @@ namespace MyMicrocontroller
             var name = (string)portsSelector.SelectedItem;
             var serial = new COMPort(name);
             return serial;
+        }
+
+        private void Start_btn_Click(object sender, RoutedEventArgs e)
+        {
+            start_btn.IsEnabled = false;
+            progressBar.Visibility = Visibility.Visible;
+            var number = int.Parse((new List<RadioButton>() { rb1, rb2, rb3, rb4 }).First(rb => rb.IsChecked == true).Content.ToString());
+            worker.RunWorkerAsync(number);
         }
     }
 }

@@ -17,4 +17,6 @@
     <v:String x:Key="comHelp">Select COM - port</v:String>
     <v:String x:Key="channelText">Channel number:</v:String>
     <v:String x:Key="startText">Start</v:String>
+    <v:String x:Key="taskTitle">Task</v:String>
+    <v:String x:Key="taskText">Task 45. Measure the voltage at the specified input of the ADC (module 7018) and display its value. The channel number is set at the input of the module 7044, specifying ground potentials and supply voltage. At the end of the measurement, turn on the indicator light on output 7044.</v:String>
 </ResourceDictionary>

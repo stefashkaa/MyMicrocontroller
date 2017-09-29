@@ -3,4 +3,5 @@
                     xmlns:s="clr-namespace:System;assembly=mscorlib">
     <FontFamily x:Key="defaultFont">Times New Roman</FontFamily>
     <s:Double x:Key="defaultFontSize">16</s:Double>
+    <TextFormattingMode x:Key="textMode">Display</TextFormattingMode>
 </ResourceDictionary>

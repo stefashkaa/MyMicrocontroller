@@ -3,29 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MyMicrocontroller"
         xml:lang="en-US"
         mc:Ignorable="d"
-        Title="{DynamicResource clientTitle}" Height="369" Width="549.972" MinHeight="350" MinWidth="346.972" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,0,0">
+        Title="{DynamicResource clientTitle}" Height="348" Width="584.972" MinHeight="492" MinWidth="584.972" WindowStartupLocation="CenterScreen">
+    <Grid Name="mainGrid" Margin="0,0,0,0">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black" Offset="0"/>
                 <GradientStop Color="#FF1243AA" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ComboBox x:Name="portsSelector" HorizontalAlignment="Left" ToolTip="{DynamicResource comHelp}" Margin="10,169,0,0" VerticalAlignment="Top" Width="120" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="1"/>
-        <Label Content="{DynamicResource comText}" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Width="120" Foreground="#FFE8DDDD" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}"/>
-        <Label Content="{DynamicResource channelText}" Margin="10,211,274,0" VerticalAlignment="Top" Foreground="#FFE8DDDD" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}"/>
-        <Grid Height="51" Margin="5,243,274,0" VerticalAlignment="Top">
+        <ComboBox x:Name="portsSelector" HorizontalAlignment="Left" ToolTip="{DynamicResource comHelp}" Margin="10,167,0,0" VerticalAlignment="Top" Width="120" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="1" MouseDown="portsSelector_MouseDown"/>
+        <Label Content="{DynamicResource comText}" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="120" Foreground="#FFE8DDDD" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}"/>
+        <Label Content="{DynamicResource channelText}" Margin="10,198,315,0" VerticalAlignment="Top" Foreground="#FFE8DDDD" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}"/>
+        <Grid Height="32" Margin="5,222,315,0" VerticalAlignment="Top">
             <RadioButton Name="rb1" Content="1" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="55" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" IsChecked="True" TabIndex="2"/>
             <RadioButton Name="rb2" Content="2" HorizontalAlignment="Left" Margin="74,6,0,0" VerticalAlignment="Top" Width="54" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="3"/>
             <RadioButton Name="rb3" Content="3" HorizontalAlignment="Left" Margin="138,6,0,0" VerticalAlignment="Top" Width="54" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="4"/>
             <RadioButton Name="rb4" Content="4" HorizontalAlignment="Left" Margin="201,6,0,0" VerticalAlignment="Top" Width="54" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="5"/>
         </Grid>
-        <Label Content="{DynamicResource voltageText}" Margin="278,136,10,0" Foreground="#FFE8DDDD" Height="29" VerticalAlignment="Top" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}"/>
-        <TextBox x:Name="voltage_txt" Height="28" ToolTip="{DynamicResource voltageHelp}" Margin="278,169,10,0" TextWrapping="Wrap" Text="100000000000 мВ" VerticalAlignment="Top" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" IsTabStop="False" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
-        <Ellipse x:Name="indicator" Height="50" Margin="0,233,215,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="51">
+        <Label Content="{DynamicResource voltageText}" Margin="278,134,10,0" Foreground="#FFE8DDDD" Height="29" VerticalAlignment="Top" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}"/>
+        <TextBox x:Name="voltage_txt" Height="28" ToolTip="{DynamicResource voltageHelp}" Margin="278,167,10,0" TextWrapping="Wrap" Text="100000000000 мВ" VerticalAlignment="Top" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" IsTabStop="False" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
+        <Ellipse x:Name="indicator" Height="28" Margin="189,167,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="28">
             <Ellipse.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -39,10 +38,35 @@
                 </LinearGradientBrush>
             </Ellipse.Stroke>
         </Ellipse>
-        <Button x:Name="start_btn" Content="{DynamicResource startText}" ToolTip="{DynamicResource startText}" Margin="10,0,280,7" Height="25" VerticalAlignment="Bottom" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="6" Click="Start_btn_Click"/>
-        <Expander Margin="10,5,10,0" Padding="5" Header="{DynamicResource ResourceKey=taskTitle}" Height="131" VerticalAlignment="Top" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}">
+        <Expander Margin="10,7,10,0" Padding="5" Header="{DynamicResource ResourceKey=taskTitle}" Height="131" VerticalAlignment="Top" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}">
             <TextBlock TextWrapping="Wrap"><Run Text="{DynamicResource ResourceKey=taskText}"/></TextBlock>
         </Expander>
-        <ProgressBar x:Name="progressBar" Height="Auto" Margin="269,293,10,7" IsIndeterminate="True" Visibility="Hidden"/>
+        <ProgressBar x:Name="progressBar" Height="25" Margin="277,0,10,6" IsIndeterminate="True" Visibility="Visible" VerticalAlignment="Bottom"/>
+        <Grid Name="userTools" Margin="0,0,0,106" HorizontalAlignment="Left" Width="277" Height="99" VerticalAlignment="Bottom">
+            <Button x:Name="start_btn" Content="{DynamicResource startText}" ToolTip="{DynamicResource startText}" Margin="10,0,0,36" Height="25" VerticalAlignment="Bottom" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="7" Click="Start_btn_Click" HorizontalAlignment="Left" Width="254"/>
+            <Button x:Name="openPort_btn" Content="{DynamicResource openPortText}" ToolTip="{DynamicResource openPortText}" Margin="10,0,0,66" Height="25" VerticalAlignment="Bottom" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="6" HorizontalAlignment="Left" Width="254"/>
+            <Button x:Name="closePort_btn" Content="{DynamicResource closePortText}" ToolTip="{DynamicResource closePortText}" Height="25" VerticalAlignment="Bottom" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="8" HorizontalAlignment="Left" Width="254" Margin="10,0,0,6"/>
+        </Grid>
+        <Grid Name="adminTools" Margin="0,0,0,3" HorizontalAlignment="Left" Width="277" Height="103" VerticalAlignment="Bottom">
+            <Label Content="{DynamicResource writeCommandText}" Foreground="#FFE8DDDD" Height="29" VerticalAlignment="Top" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" HorizontalAlignment="Left" Width="254" Margin="10,4,0,0"/>
+            <TextBox x:Name="writeCommand_txt" Height="28" ToolTip="{DynamicResource writeCommandHelp}" Margin="10,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="9" HorizontalAlignment="Left" Width="254"/>
+            <Button x:Name="executeCommand_btn" Content="{DynamicResource executeCommandText}" ToolTip="{DynamicResource executeCommandText}" Height="25" VerticalAlignment="Bottom" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="10" HorizontalAlignment="Left" Width="254" Margin="10,0,0,3"/>
+        </Grid>
+        <ListView Margin="277,207,10,44" x:Name="traceView" ItemsSource="{Binding}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="#" Width="33">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Width="20" Height="20" Source="{Binding Type}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Trace" Width="235" DisplayMemberBinding="{Binding Text}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Name="loginName" Content="" HorizontalAlignment="Right" Margin="0,10,49,0" Padding="5,5,20,5" VerticalAlignment="Top" Width="439" Foreground="{DynamicResource ControlActiveBorderBrush}" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" HorizontalContentAlignment="Right" Panel.ZIndex="1"/>
+        <Button x:Name="logoff_btn" Content="X" ToolTip="{DynamicResource openPortText}" Margin="0,4,10,0" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="6" HorizontalAlignment="Right" Width="34" Click="logoff_btn_Click" Panel.ZIndex="1" Foreground="#FF32EBFB" Height="34" VerticalAlignment="Top"/>
     </Grid>
 </Window>

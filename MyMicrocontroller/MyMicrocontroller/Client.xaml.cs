@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace MyMicrocontroller
     /// </summary>
     public partial class Client : Window
     {
-        private readonly string userName;
         private readonly BackgroundWorker worker;
+
         public Client()
         {
             InitializeComponent();
@@ -24,16 +25,29 @@ namespace MyMicrocontroller
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
         }
 
-        public Client(string name) : this()
+        public Client(Account account) : this()
         {
-            this.userName = name;
+            loginName.Content = account.Name;
+            InitialAdminTools(account);
+            Trace.Log(MessageType.Success, "Ready for work", traceView);
+        }
+
+        private void InitialAdminTools(Account account)
+        {
+            if (!account.IsAdmin)
+            {
+                adminTools.Visibility = Visibility.Hidden;
+                userTools.Margin = adminTools.Margin;
+            }
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             // run all background tasks here
             var number = int.Parse(e.Argument.ToString());
+            Trace.Log(MessageType.Info, "Starting...", traceView);
             Thread.Sleep(4000);
+            Trace.Log(MessageType.Success, "Procedure was complited", traceView);
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -67,6 +81,19 @@ namespace MyMicrocontroller
             progressBar.Visibility = Visibility.Visible;
             var number = int.Parse((new List<RadioButton>() { rb1, rb2, rb3, rb4 }).First(rb => rb.IsChecked == true).Content.ToString());
             worker.RunWorkerAsync(number);
+        }
+
+        private void portsSelector_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            InitializeCOMSelector();
+        }
+
+        private void logoff_btn_Click(object sender, RoutedEventArgs e)
+        {
+            Trace.Clear(traceView);
+            var logon = new Logon();
+            logon.Show();
+            this.Close();
         }
     }
 }

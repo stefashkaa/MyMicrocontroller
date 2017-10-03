@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -70,17 +69,17 @@ namespace MyMicrocontroller
         {
             return new List<Account>()
             {
-                new Account("stefan", "pass"),
-                new Account("tanya", "pass"),
-                new Account("yaroslav", "pass")
+                new Account("stefan", "pass", true),
+                new Account("tanya", "pass", true),
+                new Account("yaroslav", "pass"),
+                new Account("1", "1", true)
             };
         }
 
         private void Logon_Click(object sender, RoutedEventArgs e)
         {
-            var converter = new TypeConverter();
-            var errorLogonTitle = converter.ConvertToString(Application.Current.Resources["errorLogonTitle"]);
-            var errorLogonText = converter.ConvertToString(Application.Current.Resources["errorLogonText"]);
+            var errorLogonTitle = Trace.GetStringByKey("errorLogonTitle");
+            var errorLogonText = Trace.GetStringByKey("errorLogonText");
 
             var trustedAccounts = InitializeTrustedAccounts();
             var currentAccount = new Account(userName_txt.Text, password_pass.Password);
@@ -91,7 +90,8 @@ namespace MyMicrocontroller
             }
             else
             {
-                var client = new Client(currentAccount.Name);
+                currentAccount.IsAdmin = trustedAccounts.First(a => a.Name.Equals(currentAccount.Name)).IsAdmin;
+                var client = new Client(currentAccount);
                 client.Show();
                 this.Close();
             }
@@ -101,13 +101,13 @@ namespace MyMicrocontroller
         {
             if (String.IsNullOrWhiteSpace(userName_txt.Text))
             {
-                userName_txt.Text = (string)Application.Current.Resources["userName"];
+                userName_txt.Text = Trace.GetStringByKey("userName");
             }
         }
 
         private void UserName_txt_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            if (userName_txt.Text.Equals((string)Application.Current.Resources["userName"]))
+            if (userName_txt.Text.Equals(Trace.GetStringByKey("userName")))
             {
                 userName_txt.Text = "";
             }
@@ -128,21 +128,6 @@ namespace MyMicrocontroller
                 password_pass.Password = "";
                 password_txt.Visibility = Visibility.Visible;
             }
-        }
-    }
-
-    public class Account
-    {
-        private string name;
-        private string password;
-
-        public string Name { get => name; }
-        public string Password { get => password; }
-
-        public Account(string name, string password)
-        {
-            this.name = name;
-            this.password = password;
         }
     }
 }

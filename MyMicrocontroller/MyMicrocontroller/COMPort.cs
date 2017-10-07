@@ -11,6 +11,27 @@ namespace MyMicrocontroller
         public COMPort(string name)
         {
             serial = new SerialPort(name, 38400, Parity.None, 8, StopBits.One);
+            serial.Open();
+        }
+
+        public bool IsOpen()
+        {
+            return serial.IsOpen;
+        }
+
+        public void Close()
+        {
+            serial.Close();
+        }
+
+        public void Execute(string command)
+        {
+
+        }
+
+        public void Run()
+        {
+
         }
         /*
          * serial.Open();

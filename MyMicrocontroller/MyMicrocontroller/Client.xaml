@@ -13,7 +13,7 @@
                 <GradientStop Color="#FF1243AA" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ComboBox x:Name="portsSelector" HorizontalAlignment="Left" ToolTip="{DynamicResource comHelp}" Margin="10,167,0,0" VerticalAlignment="Top" Width="120" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="1" MouseDown="portsSelector_MouseDown"/>
+        <ComboBox x:Name="portsSelector" HorizontalAlignment="Left" ToolTip="{DynamicResource comHelp}" Margin="10,167,0,0" VerticalAlignment="Top" Width="120" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="1" DropDownOpened="portsSelector_DropDownOpened" />
         <Label Content="{DynamicResource comText}" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="120" Foreground="#FFE8DDDD" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}"/>
         <Label Content="{DynamicResource channelText}" Margin="10,198,315,0" VerticalAlignment="Top" Foreground="#FFE8DDDD" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}"/>
         <Grid Height="32" Margin="5,222,315,0" VerticalAlignment="Top">

@@ -83,7 +83,7 @@ namespace MyMicrocontroller
             worker.RunWorkerAsync(number);
         }
 
-        private void portsSelector_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void portsSelector_DropDownOpened(object sender, EventArgs e)
         {
             InitializeCOMSelector();
         }
@@ -91,8 +91,7 @@ namespace MyMicrocontroller
         private void logoff_btn_Click(object sender, RoutedEventArgs e)
         {
             Trace.Clear(traceView);
-            var logon = new Logon();
-            logon.Show();
+            new Logon().Show();
             this.Close();
         }
     }

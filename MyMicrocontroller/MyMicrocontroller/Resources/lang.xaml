@@ -24,4 +24,10 @@
     <v:String x:Key="writeCommandText">Enter command:</v:String>
     <v:String x:Key="writeCommandHelp">Enter command</v:String>
     <v:String x:Key="executeCommandText">Execute command</v:String>
+    <v:String x:Key="PortOpened">Port was opened</v:String>
+    <v:String x:Key="PortClosed">Port was closed</v:String>
+    <v:String x:Key="PortOpeningError">Port opening error</v:String>
+    <v:String x:Key="PortClosingError">Port closing error</v:String>
+    <v:String x:Key="PortAlreadyOpen">Port has already been opened</v:String>
+    <v:String x:Key="PortAlreadyClose">Port has already been closed</v:String>
 </ResourceDictionary>

@@ -10,7 +10,7 @@ namespace MyMicrocontroller
         private static string resources = "Resources";
         private static List<Message> messages = new List<Message>();
 
-        public static void Log(MessageType type, string key, ListView control)
+        public static void Log(string key, ListView control, MessageType type = MessageType.Success)
         {
             messages.Add(new Message($"{resources}/{type.ToString().ToUpper()}.png", GetStringByKey(key) ?? key));
             control.Dispatcher.BeginInvoke(new Action(delegate ()

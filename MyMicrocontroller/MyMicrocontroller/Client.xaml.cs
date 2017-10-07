@@ -15,6 +15,7 @@ namespace MyMicrocontroller
     public partial class Client : Window
     {
         private readonly BackgroundWorker worker;
+        private readonly COMPort port;
 
         public Client()
         {
@@ -23,13 +24,28 @@ namespace MyMicrocontroller
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            port = new COMPort();
         }
 
         public Client(Account account) : this()
         {
             loginName.Content = account.Name;
             InitialAdminTools(account);
-            Trace.Log(MessageType.Success, "Ready for work", traceView);
+            Trace.Log("Ready for work", traceView);
+        }
+
+        private void changeIndicator(bool condition)
+        {
+            if (condition)
+            {
+                indicatorOFF.Visibility = Visibility.Hidden;
+                indicatorON.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                indicatorON.Visibility = Visibility.Hidden;
+                indicatorOFF.Visibility = Visibility.Visible;
+            }
         }
 
         private void InitialAdminTools(Account account)
@@ -45,15 +61,16 @@ namespace MyMicrocontroller
         {
             // run all background tasks here
             var number = int.Parse(e.Argument.ToString());
-            Trace.Log(MessageType.Info, "Starting...", traceView);
+            Trace.Log("Starting...", traceView, MessageType.Info);
             Thread.Sleep(4000);
-            Trace.Log(MessageType.Success, "Procedure was complited", traceView);
+            Trace.Log("Procedure was complited", traceView);
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             //update ui once worker complete his work
             progressBar.Visibility = Visibility.Hidden;
+            changeIndicator(true);
             start_btn.IsEnabled = true;
         }
 
@@ -68,15 +85,9 @@ namespace MyMicrocontroller
             portsSelector.SelectedIndex = 0;
         }
 
-        private COMPort InitializeSerial()
+        private void start_btn_Click(object sender, RoutedEventArgs e)
         {
-            var name = (string)portsSelector.SelectedItem;
-            var serial = new COMPort(name);
-            return serial;
-        }
-
-        private void Start_btn_Click(object sender, RoutedEventArgs e)
-        {
+            changeIndicator(false);
             start_btn.IsEnabled = false;
             progressBar.Visibility = Visibility.Visible;
             var number = int.Parse((new List<RadioButton>() { rb1, rb2, rb3, rb4 }).First(rb => rb.IsChecked == true).Content.ToString());
@@ -93,6 +104,44 @@ namespace MyMicrocontroller
             Trace.Clear(traceView);
             new Logon().Show();
             this.Close();
+        }
+
+        private void openPort_btn_Click(object sender, RoutedEventArgs e)
+        {
+            var condition = port.Open(portsSelector.SelectedItem.ToString());
+            switch (condition)
+            {
+                case EventMessage.PortOpened:
+                    Trace.Log(condition.ToString(), traceView);
+                    break;
+                case EventMessage.PortOpeningError:
+                    Trace.Log(condition.ToString(), traceView, MessageType.Error);
+                    break;
+                case EventMessage.PortAlreadyOpen:
+                    Trace.Log(condition.ToString(), traceView, MessageType.Warning);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void closePort_btn_Click(object sender, RoutedEventArgs e)
+        {
+            var condition = port.Close();
+            switch (condition)
+            {
+                case EventMessage.PortClosed:
+                    Trace.Log(condition.ToString(), traceView);
+                    break;
+                case EventMessage.PortClosingError:
+                    Trace.Log(condition.ToString(), traceView, MessageType.Error);
+                    break;
+                case EventMessage.PortAlreadyClose:
+                    Trace.Log(condition.ToString(), traceView, MessageType.Warning);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

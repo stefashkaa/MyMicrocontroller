@@ -1,4 +1,5 @@
 ﻿using System.IO.Ports;
+using System;
 
 namespace MyMicrocontroller
 {
@@ -8,10 +9,11 @@ namespace MyMicrocontroller
 
         public SerialPort Serial { get => serial; set => serial = value; }
 
+        public COMPort() { }
+
         public COMPort(string name)
         {
             serial = new SerialPort(name, 38400, Parity.None, 8, StopBits.One);
-            serial.Open();
         }
 
         public bool IsOpen()
@@ -19,9 +21,39 @@ namespace MyMicrocontroller
             return serial.IsOpen;
         }
 
-        public void Close()
+        public EventMessage Open(string name)
         {
-            serial.Close();
+            try
+            {
+                if (serial?.PortName.Equals(name) == true && serial.IsOpen)
+                {
+                    return EventMessage.PortAlreadyOpen;
+                }
+                serial = new SerialPort(name, 38400, Parity.None, 8, StopBits.One);
+                serial.Open();
+                return EventMessage.PortOpened;
+            }
+            catch (Exception)
+            {
+                return EventMessage.PortOpeningError;
+            }
+        }
+
+        public EventMessage Close()
+        {
+            try
+            {
+                if (!IsOpen())
+                {
+                    return EventMessage.PortAlreadyClose;
+                }
+                serial.Close();
+                return EventMessage.PortClosed;
+            }
+            catch (Exception)
+            {
+                return EventMessage.PortClosingError;
+            }
         }
 
         public void Execute(string command)
@@ -47,5 +79,15 @@ namespace MyMicrocontroller
          * serial.WriteLine(string text) — записать строку text в порт.
          * serial.Close() - по окончанию.
          */
+    }
+
+    public enum EventMessage
+    {
+        PortOpened = 0,
+        PortClosed = 1,
+        PortOpeningError = 2,
+        PortClosingError = 3,
+        PortAlreadyOpen = 4,
+        PortAlreadyClose = 5
     }
 }

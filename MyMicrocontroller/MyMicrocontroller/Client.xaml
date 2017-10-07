@@ -41,7 +41,7 @@
         <Expander Margin="10,7,10,0" Padding="5" Header="{DynamicResource ResourceKey=taskTitle}" Height="131" VerticalAlignment="Top" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}">
             <TextBlock TextWrapping="Wrap"><Run Text="{DynamicResource ResourceKey=taskText}"/></TextBlock>
         </Expander>
-        <ProgressBar x:Name="progressBar" Height="25" Margin="277,0,10,6" IsIndeterminate="True" Visibility="Visible" VerticalAlignment="Bottom"/>
+        <ProgressBar x:Name="progressBar" Height="25" Margin="277,0,10,6" IsIndeterminate="True" Visibility="Hidden" VerticalAlignment="Bottom"/>
         <Grid Name="userTools" Margin="0,0,0,106" HorizontalAlignment="Left" Width="277" Height="99" VerticalAlignment="Bottom">
             <Button x:Name="start_btn" Content="{DynamicResource startText}" ToolTip="{DynamicResource startText}" Margin="10,0,0,36" Height="25" VerticalAlignment="Bottom" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="7" Click="start_btn_Click" HorizontalAlignment="Left" Width="254"/>
             <Button x:Name="openPort_btn" Content="{DynamicResource openPortText}" ToolTip="{DynamicResource openPortText}" Margin="10,0,0,66" Height="25" VerticalAlignment="Bottom" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="6" HorizontalAlignment="Left" Width="254" Click="openPort_btn_Click"/>

@@ -24,10 +24,26 @@
     <v:String x:Key="writeCommandText">Enter command:</v:String>
     <v:String x:Key="writeCommandHelp">Enter command</v:String>
     <v:String x:Key="executeCommandText">Execute command</v:String>
+    <v:String x:Key="accountText">Your account name</v:String>
+    <v:String x:Key="logoffText">Log off</v:String>
+    <v:String x:Key="logoffHelp">Sign out of this account</v:String>
+    <v:String x:Key="indicator">Indicator</v:String>
+    <!--Messages-->
     <v:String x:Key="PortOpened">Port was opened</v:String>
     <v:String x:Key="PortClosed">Port was closed</v:String>
     <v:String x:Key="PortOpeningError">Port opening error</v:String>
     <v:String x:Key="PortClosingError">Port closing error</v:String>
     <v:String x:Key="PortAlreadyOpen">Port has already been opened</v:String>
     <v:String x:Key="PortAlreadyClose">Port has already been closed</v:String>
+    <v:String x:Key="PortNotOpened">Port wasn't opened</v:String>
+    <v:String x:Key="MainOperationNotComplited">Main operation wasn't complited</v:String>
+    <v:String x:Key="MainOperationComplited">Main operation was complited</v:String>
+    <v:String x:Key="OperationNotComplited">Operation wasn't complited</v:String>
+    <v:String x:Key="OperationComplited">Operation was complited</v:String>
+
+    <v:String x:Key="startMainProc">Starting main procedure...</v:String>
+    <v:String x:Key="startProc">Starting procedure...</v:String>
+    <v:String x:Key="ready">Ready for work</v:String>
+    <v:String x:Key="Volt">V</v:String>
+    <v:String x:Key="mVolt">mV</v:String>
 </ResourceDictionary>

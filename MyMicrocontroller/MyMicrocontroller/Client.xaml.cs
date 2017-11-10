@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,7 +16,7 @@ namespace MyMicrocontroller
     public partial class Client : Window
     {
         private readonly BackgroundWorker worker;
-        private readonly COMPort port;
+        private readonly List<COMPort> ports;
 
         public Client()
         {
@@ -24,14 +25,14 @@ namespace MyMicrocontroller
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            port = new COMPort();
+            ports = new List<COMPort>();
         }
 
         public Client(Account account) : this()
         {
             loginName.Content = account.Name;
             InitialAdminTools(account);
-            Trace.Log("Ready for work", traceView);
+            Trace.Log("ready", traceView);
         }
 
         private void changeIndicator(bool condition)
@@ -59,11 +60,34 @@ namespace MyMicrocontroller
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            // run all background tasks here
             var number = int.Parse(e.Argument.ToString());
-            Trace.Log("Starting...", traceView, MessageType.Info);
+            var name = "";
+            var port = ports.FirstOrDefault(p => p.GetName().Equals(name));
+
+            if (port == null)
+            {
+                Trace.Log(EventMessage.PortNotOpened.ToString(), traceView, MessageType.Error, name);
+                return;
+            }
+
+            Trace.Log("startMainProc", traceView, MessageType.Info, name);
+            var condition = port.Run();
             Thread.Sleep(4000);
-            Trace.Log("Procedure was complited", traceView);
+
+            switch (condition)
+            {
+                case EventMessage.PortNotOpened:
+                    Trace.Log(condition.ToString(), traceView, MessageType.Error, name);
+                    break;
+                case EventMessage.MainOperationNotComplited:
+                    Trace.Log(condition.ToString(), traceView, MessageType.Error, name);
+                    break;
+                case EventMessage.MainOperationComplited:
+                    Trace.Log(condition.ToString(), traceView, MessageType.Success, name);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -91,7 +115,17 @@ namespace MyMicrocontroller
             start_btn.IsEnabled = false;
             progressBar.Visibility = Visibility.Visible;
             var number = int.Parse((new List<RadioButton>() { rb1, rb2, rb3, rb4 }).First(rb => rb.IsChecked == true).Content.ToString());
-            worker.RunWorkerAsync(number);
+            //worker.RunWorkerAsync(number);
+            AcyncRunProcedure(number).ContinueWith(new Action<Task>(delegate(Task t) 
+            {
+                //changeIndicator(true);
+                //start_btn.IsEnabled = true;
+                //progressBar.Visibility = Visibility.Hidden;
+                Invoker(() => progressBar.Visibility = Visibility.Hidden);
+                Invoker(() => changeIndicator(true));
+                Invoker(() => start_btn.IsEnabled = true);
+
+            }));
         }
 
         private void portsSelector_DropDownOpened(object sender, EventArgs e)
@@ -101,6 +135,7 @@ namespace MyMicrocontroller
 
         private void logoff_btn_Click(object sender, RoutedEventArgs e)
         {
+            ports.Clear();
             Trace.Clear(traceView);
             new Logon().Show();
             this.Close();
@@ -108,17 +143,24 @@ namespace MyMicrocontroller
 
         private void openPort_btn_Click(object sender, RoutedEventArgs e)
         {
-            var condition = port.Open(portsSelector.SelectedItem.ToString());
+            var name = portsSelector.SelectedItem.ToString();
+            var port = ports.FirstOrDefault(p => p.GetName().Equals(name));
+            if (port == null)
+            {
+                ports.Add(new COMPort());
+                port = ports.Last();
+            }
+            var condition = port.Open(name);
             switch (condition)
             {
                 case EventMessage.PortOpened:
-                    Trace.Log(condition.ToString(), traceView);
+                    Trace.Log(condition.ToString(), traceView, MessageType.Success, name);
                     break;
                 case EventMessage.PortOpeningError:
-                    Trace.Log(condition.ToString(), traceView, MessageType.Error);
+                    Trace.Log(condition.ToString(), traceView, MessageType.Error, name);
                     break;
                 case EventMessage.PortAlreadyOpen:
-                    Trace.Log(condition.ToString(), traceView, MessageType.Warning);
+                    Trace.Log(condition.ToString(), traceView, MessageType.Warning, name);
                     break;
                 default:
                     break;
@@ -127,21 +169,73 @@ namespace MyMicrocontroller
 
         private void closePort_btn_Click(object sender, RoutedEventArgs e)
         {
+            var name = portsSelector.SelectedItem.ToString();
+            var port = ports.FirstOrDefault(p => p.GetName().Equals(name));
+            if (port == null)
+            {
+                Trace.Log(EventMessage.PortClosingError.ToString(), traceView, MessageType.Error, name);
+                return;
+            }
             var condition = port.Close();
             switch (condition)
             {
                 case EventMessage.PortClosed:
-                    Trace.Log(condition.ToString(), traceView);
+                    Trace.Log(condition.ToString(), traceView, MessageType.Success, name);
                     break;
                 case EventMessage.PortClosingError:
-                    Trace.Log(condition.ToString(), traceView, MessageType.Error);
+                    Trace.Log(condition.ToString(), traceView, MessageType.Error, name);
                     break;
                 case EventMessage.PortAlreadyClose:
-                    Trace.Log(condition.ToString(), traceView, MessageType.Warning);
+                    Trace.Log(condition.ToString(), traceView, MessageType.Warning, name);
                     break;
                 default:
                     break;
             }
+        }
+
+        private void RunProcedure(int count)
+        {
+            var name = string.Empty;
+            Invoker(() => name = portsSelector.SelectedItem.ToString());
+            var port = ports.FirstOrDefault(p => p.GetName().Equals(name));
+            if (port == null)
+            {
+                Trace.Log(EventMessage.PortNotOpened.ToString(), traceView, MessageType.Error, name);
+                return;
+            }
+
+            Trace.Log("startMainProc", traceView, MessageType.Info, name);
+            var condition = port.Run();
+            Thread.Sleep(4000);
+
+            switch (condition)
+            {
+                case EventMessage.PortNotOpened:
+                    Trace.Log(condition.ToString(), traceView, MessageType.Error, name);
+                    break;
+                case EventMessage.MainOperationNotComplited:
+                    Trace.Log(condition.ToString(), traceView, MessageType.Error, name);
+                    break;
+                case EventMessage.MainOperationComplited:
+                    Trace.Log(condition.ToString(), traceView, MessageType.Success, name);
+                    break;
+                default:
+                    break;
+            }
+
+            //Invoker(() => progressBar.Visibility = Visibility.Hidden);
+            //Invoker(() => changeIndicator(true));
+            //Invoker(() => start_btn.IsEnabled = true);
+        }
+
+        private async Task AcyncRunProcedure(int count)
+        {
+            await Task.Factory.StartNew(() => RunProcedure(count), TaskCreationOptions.LongRunning);
+        }
+
+        private void Invoker(Action callback)
+        {
+            Dispatcher.Invoke(callback);
         }
     }
 }

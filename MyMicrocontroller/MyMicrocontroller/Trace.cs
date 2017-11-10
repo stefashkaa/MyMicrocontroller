@@ -10,9 +10,14 @@ namespace MyMicrocontroller
         private static string resources = "Resources";
         private static List<Message> messages = new List<Message>();
 
-        public static void Log(string key, ListView control, MessageType type = MessageType.Success)
+        public static void Log(
+            string key,
+            ListView control,
+            MessageType type = MessageType.Success,
+            string portName = null)
         {
-            messages.Add(new Message($"{resources}/{type.ToString().ToUpper()}.png", GetStringByKey(key) ?? key));
+            messages.Add(new Message($"{resources}/{type.ToString().ToUpper()}.png",
+                $"{(portName != null ? $"[{portName}]: " : string.Empty)}{GetStringByKey(key) ?? key}"));
             control.Dispatcher.BeginInvoke(new Action(delegate ()
             {
                 control.DataContext = null;

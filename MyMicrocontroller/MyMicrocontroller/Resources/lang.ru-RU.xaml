@@ -19,4 +19,31 @@
     <v:String x:Key="startText">Старт</v:String>
     <v:String x:Key="taskTitle">Задание</v:String>
     <v:String x:Key="taskText">Задание 45. Измерить напряжение на заданном входе АЦП (модуль 7018) и вывести его значение. Номер канала устанавливается на входе модуля 7044, задавая потенциалы "земли" и напряжение питания. В момент окончания измерения включить на выходе 7044 индикаторную лампочку.</v:String>
+    <v:String x:Key="openPortText">Открыть порт</v:String>
+    <v:String x:Key="closePortText">Закрыть порт</v:String>
+    <v:String x:Key="writeCommandText">Введите команду:</v:String>
+    <v:String x:Key="writeCommandHelp">Введите команду</v:String>
+    <v:String x:Key="executeCommandText">Выполнить команду</v:String>
+    <v:String x:Key="accountText">Имя аккаунта</v:String>
+    <v:String x:Key="logoffText">Выйти</v:String>
+    <v:String x:Key="logoffHelp">Выход из текущего аккаунта</v:String>
+    <v:String x:Key="indicator">Индикатор</v:String>
+    <!--Messages-->
+    <v:String x:Key="PortOpened">Порт открыт</v:String>
+    <v:String x:Key="PortClosed">Порт закрыт</v:String>
+    <v:String x:Key="PortOpeningError">Ошибка открытия порта</v:String>
+    <v:String x:Key="PortClosingError">Ошибка закрытия порта</v:String>
+    <v:String x:Key="PortAlreadyOpen">Порт уже был открыт</v:String>
+    <v:String x:Key="PortAlreadyClose">Порт уже был закрыт</v:String>
+    <v:String x:Key="PortNotOpened">Порт не был открыт</v:String>
+    <v:String x:Key="MainOperationNotComplited">Основная операция не завершена</v:String>
+    <v:String x:Key="MainOperationComplited">Основная операция завершена</v:String>
+    <v:String x:Key="OperationNotComplited">Операция не завершена</v:String>
+    <v:String x:Key="OperationComplited">Операция завершена</v:String>
+
+    <v:String x:Key="startMainProc">Запуск основной процедуры...</v:String>
+    <v:String x:Key="startProc">Запуск процедуры...</v:String>
+    <v:String x:Key="ready">Готово к работе</v:String>
+    <v:String x:Key="Volt">В</v:String>
+    <v:String x:Key="mVolt">мВ</v:String>
 </ResourceDictionary>

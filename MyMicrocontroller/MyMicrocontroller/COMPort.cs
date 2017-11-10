@@ -16,6 +16,11 @@ namespace MyMicrocontroller
             serial = new SerialPort(name, 38400, Parity.None, 8, StopBits.One);
         }
 
+        public string GetName()
+        {
+            return serial.PortName;
+        }
+
         public bool IsOpen()
         {
             return serial.IsOpen;
@@ -56,29 +61,23 @@ namespace MyMicrocontroller
             }
         }
 
-        public void Execute(string command)
+        public EventMessage Execute(string command)
         {
-
+            if(!IsOpen())
+            {
+                return EventMessage.PortNotOpened;
+            }
+            return EventMessage.OperationComplited;
         }
 
-        public void Run()
+        public EventMessage Run()
         {
-
+            if (!IsOpen())
+            {
+                return EventMessage.PortNotOpened;
+            }
+            return EventMessage.MainOperationComplited;
         }
-        /*
-         * serial.Open();
-         * Поле Serial.isOpen позволяет проверить нам, открыт ли COM порт.
-         * Работать с COM портом мы можем как по таймеру, с определенным интервалом, так и по событию DataReceived.
-         * serial.Read(byte[] Buffer,int offset,int count) — считать count байт в массив Buffer, со смещением offset.
-         * serial.ReadByte() — считать один байт.
-         * serial.ReadChar() — считать один символ.
-         * serial.ReadExisting() — считать строкой все содержимое буфера.
-         * serial.ReadLine() — считать строку из буфера до символа Serial.NewLine .
-         * serial.ReadTo(String str) — считать содержимое буфера, до достижения строки str.
-         * serial.Write(byte[] Buffer,int offset,int count) — записать count байт массива Buffer, со смещением offset.
-         * serial.WriteLine(string text) — записать строку text в порт.
-         * serial.Close() - по окончанию.
-         */
     }
 
     public enum EventMessage
@@ -88,6 +87,11 @@ namespace MyMicrocontroller
         PortOpeningError = 2,
         PortClosingError = 3,
         PortAlreadyOpen = 4,
-        PortAlreadyClose = 5
+        PortAlreadyClose = 5,
+        PortNotOpened = 6,
+        MainOperationNotComplited = 7,
+        MainOperationComplited = 8,
+        OperationNotComplited = 9,
+        OperationComplited = 10
     }
 }

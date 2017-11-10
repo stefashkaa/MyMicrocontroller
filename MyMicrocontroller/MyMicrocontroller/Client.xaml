@@ -24,7 +24,7 @@
         </Grid>
         <Label Content="{DynamicResource voltageText}" Margin="278,134,10,0" Foreground="#FFE8DDDD" Height="29" VerticalAlignment="Top" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}"/>
         <TextBox x:Name="voltage_txt" Height="28" ToolTip="{DynamicResource voltageHelp}" Margin="278,167,10,0" TextWrapping="Wrap" Text="100000000000 мВ" VerticalAlignment="Top" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" IsTabStop="False" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
-        <Ellipse x:Name="indicatorON" Height="28" Margin="189,167,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="28" Visibility="Hidden">
+        <Ellipse x:Name="indicatorON" Height="28" Margin="189,167,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="28" Visibility="Hidden" ToolTip="{DynamicResource indicator}">
             <Ellipse.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -66,9 +66,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Name="loginName" Content="" HorizontalAlignment="Right" Margin="0,10,49,0" Padding="5,5,20,5" VerticalAlignment="Top" Width="439" Foreground="{DynamicResource ControlActiveBorderBrush}" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" HorizontalContentAlignment="Right" Panel.ZIndex="1"/>
-        <Button x:Name="logoff_btn" Content="X" ToolTip="{DynamicResource openPortText}" Margin="0,4,10,0" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="6" HorizontalAlignment="Right" Width="34" Click="logoff_btn_Click" Panel.ZIndex="1" Foreground="#FF32EBFB" Height="34" VerticalAlignment="Top"/>
-        <Ellipse x:Name="indicatorOFF" Height="28" Margin="189,167,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="28">
+        <Label Name="loginName" Content="" HorizontalAlignment="Right" Margin="0,10,99,0" Padding="5,5,20,5" VerticalAlignment="Top" Width="170" Foreground="{DynamicResource ControlActiveBorderBrush}" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" HorizontalContentAlignment="Right" Panel.ZIndex="1" ToolTip="{DynamicResource accountText}"/>
+        <Button x:Name="logoff_btn" Content="{DynamicResource logoffText}" ToolTip="{DynamicResource logoffHelp}" Margin="0,4,10,0" FontSize="{DynamicResource defaultFontSize}" FontFamily="{DynamicResource defaultFont}" TextOptions.TextFormattingMode="{DynamicResource textMode}" TabIndex="6" HorizontalAlignment="Right" Width="84" Click="logoff_btn_Click" Panel.ZIndex="1" Foreground="#FF32EBFB" Height="34" VerticalAlignment="Top"/>
+        <Ellipse x:Name="indicatorOFF" Height="28" Margin="189,167,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="28" ToolTip="{DynamicResource indicator}">
             <Ellipse.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
